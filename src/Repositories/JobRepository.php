@@ -8,6 +8,7 @@ class JobRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new JobCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new JobCollection($models);
 	}
 }

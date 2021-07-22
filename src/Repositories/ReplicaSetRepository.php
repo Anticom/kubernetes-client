@@ -8,6 +8,7 @@ class ReplicaSetRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new ReplicaSetCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new ReplicaSetCollection($models);
 	}
 }

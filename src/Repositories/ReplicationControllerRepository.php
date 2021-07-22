@@ -8,6 +8,7 @@ class ReplicationControllerRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new ReplicationControllerCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new ReplicationControllerCollection($models);
 	}
 }

@@ -12,7 +12,8 @@ class PersistentVolumeRepository extends Repository
 	 */
 	protected function createCollection($response)
 	{
-		return new PersistentVolumeCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new PersistentVolumeCollection($models);
 	}
 
 	/**

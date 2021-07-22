@@ -9,7 +9,8 @@ class NodeRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new NodeCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new NodeCollection($models);
 	}
 
 	public function proxy($node, $method, $proxy_uri, array $options = [])

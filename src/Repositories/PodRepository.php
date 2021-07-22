@@ -9,7 +9,8 @@ class PodRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new PodCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new PodCollection($models);
 	}
 
 	/**

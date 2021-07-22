@@ -8,6 +8,7 @@ class DaemonSetRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new DaemonSetCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new DaemonSetCollection($models);
 	}
 }

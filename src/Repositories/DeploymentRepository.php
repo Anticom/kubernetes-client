@@ -8,6 +8,7 @@ class DeploymentRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new DeploymentCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new DeploymentCollection($models);
 	}
 }

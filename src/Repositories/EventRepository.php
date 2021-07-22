@@ -8,6 +8,7 @@ class EventRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new EventCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new EventCollection($models);
 	}
 }

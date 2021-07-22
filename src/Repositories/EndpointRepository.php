@@ -8,6 +8,7 @@ class EndpointRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new EndpointCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new EndpointCollection($models);
 	}
 }

@@ -9,6 +9,7 @@ class NamespaceRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new NamespaceCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new NamespaceCollection($models);
 	}
 }

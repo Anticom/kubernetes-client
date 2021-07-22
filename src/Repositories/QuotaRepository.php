@@ -9,6 +9,7 @@ class QuotaRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new QuotaCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new QuotaCollection($models);
 	}
 }

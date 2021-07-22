@@ -8,6 +8,7 @@ class PersistentVolumeClaimRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new PersistentVolumeClaimCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new PersistentVolumeClaimCollection($models);
 	}
 }

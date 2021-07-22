@@ -8,6 +8,7 @@ class IngressRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new IngressCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new IngressCollection($models);
 	}
 }

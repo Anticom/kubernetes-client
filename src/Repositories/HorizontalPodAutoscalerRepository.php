@@ -8,6 +8,7 @@ class HorizontalPodAutoscalerRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new HorizontalPodAutoscalerCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new HorizontalPodAutoscalerCollection($models);
 	}
 }

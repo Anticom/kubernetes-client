@@ -57,7 +57,6 @@ abstract class Repository
 	 */
 	protected $inequalityFieldSelector = [];
 
-
 	/**
 	 * The default class namespace of the repositories
 	 * 
@@ -107,8 +106,7 @@ abstract class Repository
 			return $this->apiVersion;
 		}
 
-		$className = str_replace('Repository', '', class_basename($this));
-		$classPath = $this->modelClassNamespace . $className;
+		$classPath = $this->getModelClass();
 
 		if (!class_exists($classPath)) {
 			return;
@@ -357,6 +355,61 @@ abstract class Repository
 	{
 		$this->resetParameters();
 		return !is_null($this->setFieldSelector(['metadata.name' => $name])->first());
+	}
+
+	/**
+	 * Map the response from the API to an array of domain Models.
+	 * 
+	 * @param array $response
+	 * @return array
+	 */
+	protected function mapResponseToModels($response)
+	{
+		$items = $this->mapResponseToItems($response);
+		return $this->mapItemsToModels($items);
+	}
+
+	/**
+	 * Map the response from the API to an array of items
+	 * 
+	 * @param array $response
+	 * @return array
+	 */
+	protected function mapResponseToItems($response)
+	{
+		return $response['items'];
+	}
+
+	/**
+	 * Map the items to our domain Models
+	 * 
+	 * @param array $items
+	 * @return array
+	 */
+	protected function mapItemsToModels($items)
+	{
+		$model = $this->getModelClass();
+
+		foreach ($items as &$item) {
+			if ($item instanceof $model) {
+				continue;
+			}
+
+			$item = new $model($item);
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Get the FQN of the model class for this repository.
+	 * 
+	 * @return string
+	 */
+	protected function getModelClass()
+	{
+		$className = str_replace('Repository', '', class_basename($this));
+		return $this->modelClassNamespace . $className;
 	}
 
 	/**

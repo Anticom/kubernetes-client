@@ -11,7 +11,8 @@ class IssuerRepository extends Repository
 
     protected function createCollection($response)
     {
-        return new IssuerCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+        return new IssuerCollection($models);
     }
 
 }

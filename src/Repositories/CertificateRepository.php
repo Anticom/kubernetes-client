@@ -11,7 +11,8 @@ class CertificateRepository extends Repository
 
     protected function createCollection($response)
     {
-        return new CertificateCollection($response['items']);
+        $models = $this->mapResponseToModels($response);
+        return new CertificateCollection($models);
     }
 
 }

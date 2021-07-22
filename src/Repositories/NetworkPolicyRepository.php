@@ -8,6 +8,7 @@ class NetworkPolicyRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new NetworkPolicyCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new NetworkPolicyCollection($models);
 	}
 }

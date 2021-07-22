@@ -8,6 +8,7 @@ class SecretRepository extends Repository
 
 	protected function createCollection($response)
 	{
-		return new SecretCollection($response['items']);
+		$models = $this->mapResponseToModels($response);
+		return new SecretCollection($models);
 	}
 }
