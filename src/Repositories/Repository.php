@@ -2,6 +2,7 @@
 
 use Closure;
 use Exception;
+use Maclof\Kubernetes\Exceptions\ClassNotFoundException;
 use Maclof\Kubernetes\Models\Model;
 use Maclof\Kubernetes\Models\DeleteOptions;
 use Maclof\Kubernetes\Repositories\Utils\JSONStreamingParser;
@@ -416,7 +417,7 @@ abstract class Repository
 			return $classPath;
 		}
 
-		throw new Exception("Class ${classPath} not found");
+		throw new ClassNotFoundException("Class ${classPath} not found");
 	}
 
 	/**
