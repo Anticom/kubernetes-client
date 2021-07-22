@@ -1,6 +1,7 @@
 <?php namespace Maclof\Kubernetes\Repositories;
 
 use Closure;
+use Exception;
 use Maclof\Kubernetes\Models\Model;
 use Maclof\Kubernetes\Models\DeleteOptions;
 use Maclof\Kubernetes\Repositories\Utils\JSONStreamingParser;
@@ -107,10 +108,6 @@ abstract class Repository
 		}
 
 		$classPath = $this->getModelClass();
-
-		if (!class_exists($classPath)) {
-			return;
-		}
 
 		$this->apiVersion = (new $classPath)->getApiVersion();
 
@@ -409,7 +406,17 @@ abstract class Repository
 	protected function getModelClass()
 	{
 		$className = str_replace('Repository', '', class_basename($this));
-		return $this->modelClassNamespace . $className;
+		$classPath = $this->modelClassNamespace . $className;
+		if (class_exists($classPath)) {
+			return $classPath;
+		}
+
+		$classPath .= 'Model';
+		if (class_exists($classPath)) {
+			return $classPath;
+		}
+
+		throw new Exception("Class ${classPath} not found");
 	}
 
 	/**
